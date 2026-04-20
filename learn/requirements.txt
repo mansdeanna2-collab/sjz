@@ -1,0 +1,17 @@
+# 最小依赖：按需安装，不是全部必须
+# --- 核心 ---
+numpy>=1.23
+opencv-python>=4.8
+
+# --- 目标检测（二选一）---
+# 1) 简单上手：Ultralytics YOLO（自动下载 yolov8n.pt 等权重）
+ultralytics>=8.1
+
+# 2) 进阶：TensorRT + PyCUDA（如需跑 .engine，自行安装，对应 CUDA 版本）
+# torch>=2.1
+# tensorrt>=8.6
+# pycuda>=2024.1
+
+# --- 可选：屏幕采集 & 仿真绘图 ---
+mss>=9.0
+matplotlib>=3.7
