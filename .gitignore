@@ -1,0 +1,19 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Model / build artifacts
+*.engine
+*.onnx
+*.pt
+*.trt
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local outputs
+out*.mp4
+/tmp_out/
