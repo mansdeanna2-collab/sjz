@@ -23,6 +23,13 @@ import numpy as np
 
 from .controller import PController2D
 
+# 方向键 keycode 在不同平台（Win / Linux / macOS）上返回值不同，
+# 所以把所有已知可能值都列出来，避免写死某一个平台。
+KEY_UP    = (2490368, 0x260000, 82, 65362)
+KEY_DOWN  = (2621440, 0x280000, 84, 65364)
+KEY_LEFT  = (2424832, 0x250000, 81, 65361)
+KEY_RIGHT = (2555904, 0x270000, 83, 65363)
+
 
 def main() -> int:
     W, H = 800, 600
@@ -85,13 +92,13 @@ def main() -> int:
         key = cv2.waitKeyEx(16)
         if key in (27, ord("q")):
             break
-        elif key in (2490368, 0x260000, 82):   # up
+        elif key in KEY_UP:
             kp = min(1.0, kp + 0.01)
-        elif key in (2621440, 0x280000, 84):   # down
+        elif key in KEY_DOWN:
             kp = max(0.01, kp - 0.01)
-        elif key in (2555904, 0x270000, 83):   # right
+        elif key in KEY_RIGHT:
             cap = min(200.0, cap + 2.0)
-        elif key in (2424832, 0x250000, 81):   # left
+        elif key in KEY_LEFT:
             cap = max(1.0, cap - 2.0)
         ctrl = PController2D(kp_x=kp, kp_y=kp, step_cap=cap,
                              dead_zone=1.0, smooth=0.25)

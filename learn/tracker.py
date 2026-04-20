@@ -66,12 +66,14 @@ class IouTracker:
         max_lost: int = 8,
         min_hits: int = 2,
         ema_alpha: float = 0.5,
+        conf_alpha: float = 0.2,
         history_len: int = 30,
     ):
         self.iou_threshold = iou_threshold
         self.max_lost = max_lost
         self.min_hits = min_hits
-        self.ema_alpha = ema_alpha
+        self.ema_alpha = ema_alpha          # bbox EMA 权重（新观测占比）
+        self.conf_alpha = conf_alpha        # 置信度 EMA 权重（新观测占比）
         self.history_len = history_len
         self._tracks: Dict[int, Track] = {}
         self._ids = count(1)
@@ -93,7 +95,7 @@ class IouTracker:
             tr = self._tracks[tid]
             det = det_list[di]
             tr.xyxy = self._ema_box(tr.xyxy, det.xyxy)
-            tr.conf = 0.8 * tr.conf + 0.2 * det.conf
+            tr.conf = (1 - self.conf_alpha) * tr.conf + self.conf_alpha * det.conf
             tr.cls = det.cls
             tr.label = det.label
             tr.hits += 1
