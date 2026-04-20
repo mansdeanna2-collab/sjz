@@ -1,0 +1,25 @@
+# --- 核心（所有 demo 都需要） ---
+numpy>=1.23
+opencv-python>=4.8       # 也可用 opencv-python-headless，CI / 服务器环境更合适
+
+# --- 指派算法（匈牙利 / Jonker-Volgenant） ---
+# 没装 scipy 时 IouTracker/KalmanTracker 的 match="hungarian" 会回退成贪心
+scipy>=1.10
+
+# --- 目标检测后端（任选或都装）---
+# 1) 最易上手：Ultralytics YOLO（自动下载 yolov8n.pt 等权重）
+ultralytics>=8.1
+
+# 2) 无 ultralytics 依赖、只要有 .onnx 权重就能跑
+onnxruntime>=1.17
+
+# 3) 进阶：TensorRT + PyCUDA（如需跑 .engine，对应 CUDA 版本自行安装）
+# torch>=2.1
+# tensorrt>=8.6
+# pycuda>=2024.1
+
+# --- 可选：屏幕采集基准 ---
+mss>=9.0
+
+# --- 开发 / 测试 ---
+pytest>=7.0
